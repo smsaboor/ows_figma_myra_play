@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:ows_figma_myra_play/bottomnav/screen_bottom_nav.dart';
-import 'package:ows_figma_myra_play/home/home_screen.dart';
 import 'package:ows_figma_myra_play/login/login.dart';
 import 'package:ows_figma_myra_play/onboarding.dart';
 import 'package:ows_figma_myra_play/registeration/otp.dart';
 import 'package:ows_figma_myra_play/registeration/registration.dart';
 import 'package:ows_figma_myra_play/user_details/user_details.dart';
+import 'package:ows_figma_myra_play/welcome/welcome_screen.dart';
 
 
 
@@ -45,9 +45,9 @@ class RouteGenerator {
       case bottomNavScreen:
         return MaterialPageRoute(builder: (_) => ScreenBottomNav());
       case homeScreen:
-        return MaterialPageRoute(builder: (_) => HomeScreen());
+        return MaterialPageRoute(builder: (_) => WelcomeScreen());
       default:
-        return MaterialPageRoute(builder: (_) => HomeScreen());
+        return MaterialPageRoute(builder: (_) => WelcomeScreen());
     }
   }
 }

@@ -2,14 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:ows_figma_myra_play/bottomnav/home_tab.dart';
 
 import 'package:ows_figma_myra_play/bottomnav/widgets/custom_container.dart';
+import 'package:ows_figma_myra_play/earning/earning.dart';
+import 'package:ows_figma_myra_play/myteam/myteam.dart';
 
 class ScreenBottomNav extends StatefulWidget {
+  ScreenBottomNav();
   @override
   _ScreenBottomState createState() => _ScreenBottomState();
 }
 
 class _ScreenBottomState extends State<ScreenBottomNav> {
+  _ScreenBottomState();
   int pageIndex = 0;
+
 
   @override
   void initState() {
@@ -24,8 +29,8 @@ class _ScreenBottomState extends State<ScreenBottomNav> {
   final CKL_SELECTPAGE = [
     HomeTab(),
     CustomContainer(txt: 'Profile'),
-    CustomContainer(txt: 'My Team'),
-    CustomContainer(txt: 'Earning'),
+    MyTeam(),
+    EarningScreen()
   ];
 
 
@@ -41,7 +46,7 @@ class _ScreenBottomState extends State<ScreenBottomNav> {
               pageIndex = index;
             });
           },
-          selectedItemColor: Colors.amber,
+          selectedItemColor: Colors.indigo,
           items: [
             BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
             BottomNavigationBarItem(

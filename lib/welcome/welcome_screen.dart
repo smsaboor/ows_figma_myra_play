@@ -2,19 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:ows_figma_myra_play/login/login.dart';
 import 'package:ows_figma_myra_play/registeration/registration.dart';
 
-class HomeScreen extends StatelessWidget {
-  const HomeScreen({Key? key}) : super(key: key);
+class WelcomeScreen extends StatelessWidget {
+  const WelcomeScreen({Key? key}) : super(key: key);
 
   Widget buildImage(BuildContext context) {
-    final image = AssetImage('assets/img.png');
+    final image = AssetImage('assets/myra.png');
     return ClipOval(
       child: Material(
         color: Colors.transparent,
         child: Ink.image(
           image: image as ImageProvider,
           fit: BoxFit.cover,
-          width: MediaQuery.of(context).size.width * .4,
-          height: MediaQuery.of(context).size.width * .4,
+          width: MediaQuery.of(context).size.width * .5,
+          height: MediaQuery.of(context).size.width * .5,
           child: InkWell(onTap: null),
         ),
       ),
@@ -30,9 +30,7 @@ class HomeScreen extends StatelessWidget {
           SizedBox(height: MediaQuery.of(context).size.height * .2),
           buildImage(context),
           SizedBox(height: MediaQuery.of(context).size.height * .1),
-          Container(
-            alignment: Alignment.center,
-            margin: EdgeInsets.symmetric(horizontal: 40, vertical: 10),
+          Center(
             child: RaisedButton(
               onPressed: () {
                 Navigator.of(context)
@@ -61,12 +59,8 @@ class HomeScreen extends StatelessWidget {
               ),
             ),
           ),
-          SizedBox(
-            height: 10,
-          ),
-          Container(
-            alignment: Alignment.center,
-            margin: EdgeInsets.symmetric(horizontal: 40, vertical: 10),
+          SizedBox(height: MediaQuery.of(context).size.height * .02),
+          Center(
             child: RaisedButton(
               onPressed: () {
                 Navigator.of(context).push(
@@ -99,6 +93,4 @@ class HomeScreen extends StatelessWidget {
       ),
     );
   }
-
-  login() {}
 }

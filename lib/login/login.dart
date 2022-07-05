@@ -40,8 +40,8 @@ class _LoginScreenState extends State<LoginScreen> {
                     "LOGIN",
                     style: TextStyle(
                         fontWeight: FontWeight.bold,
-                        color: Color(0xFF2661FA),
-                        fontSize: 36),
+                        color: Colors.indigo,
+                        fontSize: MediaQuery.of(context).size.height * 0.04),
                     textAlign: TextAlign.left,
                   ),
                 ),
@@ -52,11 +52,8 @@ class _LoginScreenState extends State<LoginScreen> {
                   child: TextFormField(
                     controller: _controllerUserCode,
                     validator: (value) {
-                      bool isValid = _isEmailValidate(_controllerUserCode.text);
                       if (value!.isEmpty) {
-                        return 'Enter Your User Code';
-                      } else if (!isValid) {
-                        return 'Enter Valid UserCode';
+                        return 'Enter your User Code';
                       }
                       return null;
                     },
@@ -114,7 +111,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(top:10,left: 150.0),
+                  padding: const EdgeInsets.only(top:10,left: 110.0),
                   child: GestureDetector(
                     onTap: () => {
                      Navigator.pushReplacementNamed(context, RouteGenerator.signUp)
@@ -158,9 +155,7 @@ class _LoginScreenState extends State<LoginScreen> {
       preferences.setBool('onboarding',false);
       Navigator.pushReplacementNamed(context, RouteGenerator.bottomNavScreen);
       // Navigator.of(context).push(MaterialPageRoute(builder: (_)=>Container(color: Colors.lightBlueAccent,child: Text('Home Screen'),)));
-
     }
-
   }
 
   bool _isEmailValidate(String txt) {

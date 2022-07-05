@@ -36,6 +36,15 @@ dependencies:
   cupertino_icons: ^1.0.2
   # Data persistent
   shared_preferences: ^2.0.7
+  responsive_framework: ^0.2.0
+  image_picker: ^0.8.5+3
+  flutter_bloc: ^8.0.1
+  video_player: ^2.2.18
+
+  qr_code_scanner:
+    git:
+      url: https://github.com/X-SLAYER/qr_code_scanner.git
+      ref: flutter-beta
 
 dev_dependencies:
   flutter_test:

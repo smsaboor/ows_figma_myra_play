@@ -67,7 +67,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10),
                   ),
-                  color: Colors.lightBlueAccent,
+                  color: Colors.indigo,
                 ),
               ),
             ),
@@ -81,7 +81,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
     return Container(
               decoration: BoxDecoration(
                 image: DecorationImage(
-                  image: AssetImage('assets/myra2.png'),
+                  image: AssetImage('assets/myra.png'),
                   /// change this to your  image directory
                   fit: BoxFit.fill,
                 ),

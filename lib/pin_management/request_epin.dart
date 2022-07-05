@@ -1,6 +1,12 @@
+import 'dart:io';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:ows_figma_myra_play/route.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:ows_figma_myra_play/bloc/user_activity.dart';
+import 'package:ows_figma_myra_play/home/UserActive.dart';
+import 'package:ows_figma_myra_play/qr_scanner/qr_scanner.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class RequestEPin extends StatefulWidget {
   const RequestEPin({Key? key}) : super(key: key);
@@ -10,6 +16,7 @@ class RequestEPin extends StatefulWidget {
 }
 
 class _RequestEPinState extends State<RequestEPin> {
+  File? image;
   final GlobalKey<FormState> formKey = new GlobalKey<FormState>();
   TextEditingController _controllerMobile = TextEditingController();
   TextEditingController _controllerPassword = TextEditingController();
@@ -22,7 +29,7 @@ class _RequestEPinState extends State<RequestEPin> {
 
   @override
   Widget build(BuildContext context) {
-    Size size=MediaQuery.of(context).size;
+    Size size = MediaQuery.of(context).size;
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
@@ -31,10 +38,10 @@ class _RequestEPinState extends State<RequestEPin> {
           children: [
             Form(
               key: formKey,
-              child:Column(
+              child: Column(
                 children: <Widget>[
                   SizedBox(
-                    height: size.height * .15,
+                    height: size.height * .1,
                   ),
                   Container(
                     alignment: Alignment.center,
@@ -48,10 +55,9 @@ class _RequestEPinState extends State<RequestEPin> {
                       textAlign: TextAlign.left,
                     ),
                   ),
-
                   SizedBox(height: size.height * 0.02),
                   Padding(
-                    padding: const EdgeInsets.only(left: 35.0,right: 35.0),
+                    padding: const EdgeInsets.only(left: 35.0, right: 35.0),
                     child: FormField<String>(
                       builder: (FormFieldState<String> state) {
                         return InputDecorator(
@@ -63,13 +69,14 @@ class _RequestEPinState extends State<RequestEPin> {
                                   color: Colors.redAccent, fontSize: 8.0),
                               hintText: 'Please select Package',
                               border: OutlineInputBorder(
-                                  borderRadius:
-                                  BorderRadius.circular(5.0))),
+                                  borderRadius: BorderRadius.circular(5.0))),
                           isEmpty: _currentSelectedValue == '',
                           child: DropdownButtonHideUnderline(
+                              child: SizedBox(
+                            height: 30,
                             child: DropdownButton<String>(
                               value: _currentSelectedValue,
-                              isDense: true,
+                              isDense: false,
                               onChanged: (String? newValue) {
                                 setState(() {
                                   _currentSelectedValue = newValue!;
@@ -83,7 +90,7 @@ class _RequestEPinState extends State<RequestEPin> {
                                 );
                               }).toList(),
                             ),
-                          ),
+                          )),
                         );
                       },
                     ),
@@ -101,8 +108,7 @@ class _RequestEPinState extends State<RequestEPin> {
                       textInputAction: TextInputAction.next,
                       keyboardType: TextInputType.number,
                       inputFormatters: <TextInputFormatter>[
-                        FilteringTextInputFormatter.allow(
-                            RegExp(r'[0-9]')),
+                        FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
                       ],
                       decoration: InputDecoration(
                         labelText: "No. of E-Pin",
@@ -164,7 +170,8 @@ class _RequestEPinState extends State<RequestEPin> {
                       },
                       textInputAction: TextInputAction.next,
                       keyboardType: TextInputType.number,
-                      decoration: InputDecoration(labelText: "Enter total pay amount"),
+                      decoration:
+                          InputDecoration(labelText: "Enter total pay amount"),
                       obscureText: true,
                     ),
                   ),
@@ -178,70 +185,103 @@ class _RequestEPinState extends State<RequestEPin> {
                       textInputAction: TextInputAction.next,
                       keyboardType: TextInputType.text,
                       inputFormatters: <TextInputFormatter>[
-                        FilteringTextInputFormatter.allow(
-                            RegExp(r'[0-9]')),
+                        FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
                       ],
                     ),
                   ),
+                  Row(
+                    children: [
+                      SizedBox(
+                        width: MediaQuery.of(context).size.width * .2,
+                      ),
+                      ElevatedButton(
+                          onPressed: () {
+                            pickImage();
+                          },
+                          child: Text('choose File')),
+                      SizedBox(
+                        width: MediaQuery.of(context).size.width * .1,
+                      ),
+                      SizedBox(
+                          height: 60,
+                          width: 60,
+                          child: GestureDetector(
+                            child: Image.asset("assets/scanner.png"),
+                            onTap: () {
+                              Navigator.of(context).push(MaterialPageRoute(
+                                  builder: (_) => QRScanner()));
+                            },
+                          ))
+                    ],
+                  ),
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height * .03,
+                  ),
                   Padding(
-                    padding: const EdgeInsets.only(left: 30,top: 15.0),
-                    child: Row(children: [
-                      RaisedButton(
-                        onPressed: () {
-                          // _save(context);
-                          // Navigator.of(context).push(MaterialPageRoute(builder: (_)=>OtpScreen()));
-                        },
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(80.0)),
-                        textColor: Colors.white,
-                        padding: const EdgeInsets.all(0),
-                        child: Container(
-                          alignment: Alignment.center,
-                          height: 50.0,
-                          width: size.width * 0.4,
-                          decoration: new BoxDecoration(
-                              borderRadius: BorderRadius.circular(80.0),
-                              gradient: new LinearGradient(colors: [
-                                Color.fromARGB(255, 13, 21, 142),
-                                Color.fromARGB(255, 41, 230, 255)
-                              ])),
+                    padding: const EdgeInsets.only(left: 30, top: 15.0),
+                    child: Row(
+                      children: [
+                        RaisedButton(
+                          onPressed: () {
+                            context.read<UserActivityCubit>().updateIndex(1);
+                            Navigator.pop(context);
+                            // _save(context);
+                            // Navigator.of(context).push(MaterialPageRoute(builder: (_)=>UserActive()));
+                          },
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(80.0)),
+                          textColor: Colors.white,
                           padding: const EdgeInsets.all(0),
-                          child: Text(
-                            "Submit",
-                            textAlign: TextAlign.center,
-                            style: TextStyle(fontWeight: FontWeight.bold),
+                          child: Container(
+                            alignment: Alignment.center,
+                            height: size.height * .06,
+                            width: size.width * 0.4,
+                            decoration: new BoxDecoration(
+                                borderRadius: BorderRadius.circular(80.0),
+                                gradient: new LinearGradient(colors: [
+                                  Color.fromARGB(255, 13, 21, 142),
+                                  Color.fromARGB(255, 41, 230, 255)
+                                ])),
+                            padding: const EdgeInsets.all(0),
+                            child: Text(
+                              "Submit",
+                              textAlign: TextAlign.center,
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                            ),
                           ),
                         ),
-                      ),
-                      SizedBox(width: MediaQuery.of(context).size.width*.03,),
-                      RaisedButton(
-                        onPressed: () {
-                          // _save(context);
-                          // Navigator.of(context).push(MaterialPageRoute(builder: (_)=>OtpScreen()));
-                        },
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(80.0)),
-                        textColor: Colors.white,
-                        padding: const EdgeInsets.all(0),
-                        child: Container(
-                          alignment: Alignment.center,
-                          height: 50.0,
-                          width: size.width * 0.4,
-                          decoration: new BoxDecoration(
-                              borderRadius: BorderRadius.circular(80.0),
-                              gradient: new LinearGradient(colors: [
-                                Color.fromARGB(255, 13, 21, 142),
-                                Color.fromARGB(255, 41, 230, 255)
-                              ])),
+                        SizedBox(
+                          width: MediaQuery.of(context).size.width * .03,
+                        ),
+                        RaisedButton(
+                          onPressed: () {
+                            // _save(context);
+                            // Navigator.of(context).push(MaterialPageRoute(builder: (_)=>OtpScreen()));
+                          },
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(80.0)),
+                          textColor: Colors.white,
                           padding: const EdgeInsets.all(0),
-                          child: Text(
-                            "Cancel",
-                            textAlign: TextAlign.center,
-                            style: TextStyle(fontWeight: FontWeight.bold),
+                          child: Container(
+                            alignment: Alignment.center,
+                            height: size.height * .06,
+                            width: size.width * 0.4,
+                            decoration: new BoxDecoration(
+                                borderRadius: BorderRadius.circular(80.0),
+                                gradient: new LinearGradient(colors: [
+                                  Color.fromARGB(255, 13, 21, 142),
+                                  Color.fromARGB(255, 41, 230, 255)
+                                ])),
+                            padding: const EdgeInsets.all(0),
+                            child: Text(
+                              "Cancel",
+                              textAlign: TextAlign.center,
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                            ),
                           ),
                         ),
-                      ),
-                    ],),
+                      ],
+                    ),
                   )
                 ],
               ),
@@ -250,5 +290,16 @@ class _RequestEPinState extends State<RequestEPin> {
         ),
       ),
     );
+  }
+
+  Future pickImage() async {
+    try {
+      final image = await ImagePicker().pickImage(source: ImageSource.gallery);
+      if (image == null) return;
+      final imageTemp = File(image.path);
+      setState(() => this.image = imageTemp);
+    } on PlatformException catch (e) {
+      print('Failed to pick image: $e');
+    }
   }
 }
