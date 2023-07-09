@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:ows_figma_myra_play/bottomnav/screen_bottom_nav.dart';
-import 'package:ows_figma_myra_play/login/login.dart';
+import 'package:ows_figma_myra_play/screens/bottomnav/home_tab.dart';
+import 'package:ows_figma_myra_play/screens/dashboard/dashboard.dart';
+import 'package:ows_figma_myra_play/screens/home/home_tab.dart';
+import 'package:ows_figma_myra_play/screens/profile_management/user_details.dart';
 import 'package:ows_figma_myra_play/onboarding.dart';
-import 'package:ows_figma_myra_play/registeration/otp.dart';
-import 'package:ows_figma_myra_play/registeration/registration.dart';
-import 'package:ows_figma_myra_play/user_details/user_details.dart';
+import 'package:ows_figma_myra_play/screens/authentications/login/login.dart';
+import 'package:ows_figma_myra_play/screens/authentications/registeration/registration.dart';
+import 'package:ows_figma_myra_play/screens/bottomnav/screen_bottom_nav.dart';
 import 'package:ows_figma_myra_play/welcome/welcome_screen.dart';
-
-
 
 class RouteGenerator {
   static const String bottomNavScreen = '/tab';
+  static const String homeTab = '/hometab';
   static const String homeScreen = '/home';
   static const String signIn = '/signin';
   static const String signUp = '/signup';
@@ -30,6 +31,8 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => OnboardingScreen());
       case loading:
         return MaterialPageRoute(builder: (_) => Container());
+      case homeTab:
+        return MaterialPageRoute(builder: (_) => HomeTabScreen());
       case error:
         return MaterialPageRoute(builder: (_) => Container());
       case signIn:
@@ -37,7 +40,10 @@ class RouteGenerator {
       case signUp:
         return MaterialPageRoute(builder: (_) => RegistrationScreen());
       case userDetail:
-        return MaterialPageRoute(builder: (_) => UserDetails());
+        return MaterialPageRoute(
+            builder: (_) => UserDetails(
+                  isBottomnav: false,
+                ));
       // case otp:
       //   return MaterialPageRoute(builder: (_) => OtpScreen(mobile: mobile));
       case pwdReset:

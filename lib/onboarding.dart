@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:ows_figma_myra_play/route.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class OnboardingScreen extends StatefulWidget {
   @override
@@ -49,13 +50,11 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
               child: SizedBox(
                 height: 50,
                 width: MediaQuery.of(context).size.width,
-                child: FlatButton(
-                  onPressed: () {
+                child: ElevatedButton(
+                  onPressed: () async{
                     Navigator.pushNamed(context, RouteGenerator.homeScreen);
-                    // _controller.nextPage(
-                    //   duration: const Duration(milliseconds: 200),
-                    //   curve: Curves.easeIn,
-                    // );
+                    SharedPreferences preferences = await SharedPreferences.getInstance();
+                    preferences.setBool('onboarding',false);
                   },
                   child: Text(
                     'Gets Start',
@@ -64,10 +63,12 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                       color: Colors.white,
                     ),
                   ),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10),
+                  style: ElevatedButton.styleFrom(
+                    foregroundColor: Colors.indigo,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
                   ),
-                  color: Colors.indigo,
                 ),
               ),
             ),

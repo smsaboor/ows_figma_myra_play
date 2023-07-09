@@ -103,7 +103,7 @@ class _MultiLevelDrawerState extends State<MultiLevelDrawer> {
                       top: 0,
                       left: 10,
                       child: Container(
-                        width: size.width / 2 - 10,
+                        width: size.width / 2,
                         child: Column(
                           children: drawerItems[selectedPosition].subMenuItems!.map<Widget>((subMenuItem) {
                             return _MLChoiceItem(
@@ -143,7 +143,7 @@ class _MultiLevelDrawerState extends State<MultiLevelDrawer> {
                     controller: scrollController,
                     child: Container(
                       key: globalKey,
-                      height: drawerItems.length * 70,
+                      height: drawerItems.length * 80,
                       child: ListView.builder(
                         itemCount: drawerItems.length,
                         shrinkWrap: true,

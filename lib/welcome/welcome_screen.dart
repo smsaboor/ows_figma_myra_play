@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:ows_figma_myra_play/login/login.dart';
-import 'package:ows_figma_myra_play/registeration/registration.dart';
+import 'package:ows_figma_myra_play/screens/authentications/login/login.dart';
+import 'package:ows_figma_myra_play/screens/authentications/registeration/registration.dart';
 
 class WelcomeScreen extends StatelessWidget {
   const WelcomeScreen({Key? key}) : super(key: key);
@@ -31,15 +31,17 @@ class WelcomeScreen extends StatelessWidget {
           buildImage(context),
           SizedBox(height: MediaQuery.of(context).size.height * .1),
           Center(
-            child: RaisedButton(
+            child: ElevatedButton(
               onPressed: () {
                 Navigator.of(context)
                     .push(MaterialPageRoute(builder: (_) => LoginScreen()));
               },
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(80.0)),
-              textColor: Colors.white,
-              padding: const EdgeInsets.all(0),
+              style: ElevatedButton.styleFrom(
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(80.0)),
+                foregroundColor: Colors.white,
+                padding: const EdgeInsets.all(0),
+              ),
               child: Container(
                 alignment: Alignment.center,
                 height: 50.0,
@@ -47,8 +49,8 @@ class WelcomeScreen extends StatelessWidget {
                 decoration: new BoxDecoration(
                     borderRadius: BorderRadius.circular(80.0),
                     gradient: new LinearGradient(colors: [
-                      Color.fromARGB(255, 13, 21, 142),
-                      Color.fromARGB(255, 41, 230, 255)
+                      Color.fromARGB(255, 2, 3, 21),
+                      Color.fromARGB(255, 178, 183, 184)
                     ])),
                 padding: const EdgeInsets.all(0),
                 child: Text(
@@ -61,15 +63,17 @@ class WelcomeScreen extends StatelessWidget {
           ),
           SizedBox(height: MediaQuery.of(context).size.height * .02),
           Center(
-            child: RaisedButton(
+            child: ElevatedButton(
               onPressed: () {
                 Navigator.of(context).push(
                     MaterialPageRoute(builder: (_) => RegistrationScreen()));
               },
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(80.0)),
-              textColor: Colors.white,
-              padding: const EdgeInsets.all(0),
+              style: ElevatedButton.styleFrom(
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(80.0)),
+                foregroundColor: Colors.white,
+                padding: const EdgeInsets.all(0),
+              ),
               child: Container(
                 alignment: Alignment.center,
                 height: 50.0,
@@ -77,8 +81,8 @@ class WelcomeScreen extends StatelessWidget {
                 decoration: new BoxDecoration(
                     borderRadius: BorderRadius.circular(80.0),
                     gradient: new LinearGradient(colors: [
-                      Color.fromARGB(255, 13, 21, 142),
-                      Color.fromARGB(255, 41, 230, 255)
+                      Color.fromARGB(255, 2, 3, 21),
+                      Color.fromARGB(255, 178, 183, 184)
                     ])),
                 padding: const EdgeInsets.all(0),
                 child: Text(

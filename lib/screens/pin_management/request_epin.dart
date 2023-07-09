@@ -4,9 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:ows_figma_myra_play/bloc/user_activity.dart';
-import 'package:ows_figma_myra_play/home/UserActive.dart';
-import 'package:ows_figma_myra_play/qr_scanner/qr_scanner.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:ows_figma_myra_play/screens/qr_scanner/qr_scanner.dart';
 
 class RequestEPin extends StatefulWidget {
   const RequestEPin({Key? key}) : super(key: key);
@@ -31,6 +30,8 @@ class _RequestEPinState extends State<RequestEPin> {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
+      appBar: AppBar(title: Text('E-Pin Manager'),
+      centerTitle: true,),
       body: SingleChildScrollView(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -40,22 +41,22 @@ class _RequestEPinState extends State<RequestEPin> {
               key: formKey,
               child: Column(
                 children: <Widget>[
-                  SizedBox(
-                    height: size.height * .1,
-                  ),
-                  Container(
-                    alignment: Alignment.center,
-                    padding: EdgeInsets.symmetric(horizontal: 10),
-                    child: Text(
-                      "E-Pin Manager",
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          color: Color(0xFF2661FA),
-                          fontSize: 30),
-                      textAlign: TextAlign.left,
-                    ),
-                  ),
-                  SizedBox(height: size.height * 0.02),
+                  // SizedBox(
+                  //   height: size.height * .1,
+                  // ),
+                  // Container(
+                  //   alignment: Alignment.center,
+                  //   padding: EdgeInsets.symmetric(horizontal: 10),
+                  //   child: Text(
+                  //     "E-Pin Manager",
+                  //     style: TextStyle(
+                  //         fontWeight: FontWeight.bold,
+                  //         color: Color(0xFF2661FA),
+                  //         fontSize: 30),
+                  //     textAlign: TextAlign.left,
+                  //   ),
+                  // ),
+                  SizedBox(height: size.height * 0.1),
                   Padding(
                     padding: const EdgeInsets.only(left: 35.0, right: 35.0),
                     child: FormField<String>(
@@ -95,6 +96,7 @@ class _RequestEPinState extends State<RequestEPin> {
                       },
                     ),
                   ),
+                  SizedBox(height: size.height * 0.02),
                   Container(
                     alignment: Alignment.center,
                     margin: EdgeInsets.symmetric(horizontal: 40),
@@ -110,14 +112,13 @@ class _RequestEPinState extends State<RequestEPin> {
                       inputFormatters: <TextInputFormatter>[
                         FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
                       ],
-                      decoration: InputDecoration(
-                        labelText: "No. of E-Pin",
-                        prefixText: ' ',
-                        suffixStyle: const TextStyle(
-                          color: Colors.red,
-                          fontSize: 18.0,
-                        ),
-                      ),
+                      decoration: new InputDecoration(
+                          border: new OutlineInputBorder(
+                              borderSide: new BorderSide(color: Colors.teal)),
+                          // hintText: 'No. of E-Pin',
+                          labelText: 'No. of E-Pin',
+                          labelStyle: const TextStyle(fontSize: 20.0),
+                          suffixStyle: const TextStyle(color: Colors.green)),
                     ),
                   ),
                   SizedBox(height: size.height * 0.02),
@@ -134,7 +135,13 @@ class _RequestEPinState extends State<RequestEPin> {
                       },
                       textInputAction: TextInputAction.next,
                       keyboardType: TextInputType.text,
-                      decoration: InputDecoration(labelText: "Total Amount"),
+                      decoration: new InputDecoration(
+                          border: new OutlineInputBorder(
+                              borderSide: new BorderSide(color: Colors.teal)),
+                          // hintText: 'Select Discount',
+                          labelText: 'Total Amount',
+                          labelStyle: const TextStyle(fontSize: 20.0),
+                          suffixStyle: const TextStyle(color: Colors.green)),
                     ),
                   ),
                   SizedBox(height: size.height * 0.02),
@@ -143,7 +150,13 @@ class _RequestEPinState extends State<RequestEPin> {
                     margin: EdgeInsets.symmetric(horizontal: 40),
                     child: TextFormField(
                       controller: _controllerMobile,
-                      decoration: InputDecoration(labelText: "Discount"),
+                      decoration: new InputDecoration(
+                          border: new OutlineInputBorder(
+                              borderSide: new BorderSide(color: Colors.teal)),
+                          // hintText: 'Select Discount',
+                          labelText: 'Discount',
+                          labelStyle: const TextStyle(fontSize: 20.0),
+                          suffixStyle: const TextStyle(color: Colors.green)),
                       validator: (value) {
                         if (value!.isEmpty) {
                           return 'Enter Discount';
@@ -170,8 +183,12 @@ class _RequestEPinState extends State<RequestEPin> {
                       },
                       textInputAction: TextInputAction.next,
                       keyboardType: TextInputType.number,
-                      decoration:
-                          InputDecoration(labelText: "Enter total pay amount"),
+                      decoration: new InputDecoration(
+                          border: new OutlineInputBorder(
+                              borderSide: new BorderSide(color: Colors.teal)),
+                          labelText: 'Enter total pay amount',
+                          labelStyle: const TextStyle(fontSize: 20.0),
+                          suffixStyle: const TextStyle(color: Colors.green)),
                       obscureText: true,
                     ),
                   ),
@@ -180,7 +197,13 @@ class _RequestEPinState extends State<RequestEPin> {
                     alignment: Alignment.center,
                     margin: EdgeInsets.symmetric(horizontal: 40),
                     child: TextFormField(
-                      decoration: InputDecoration(labelText: "Utr No/Slip No"),
+                      decoration: new InputDecoration(
+                          border: new OutlineInputBorder(
+                              borderSide: new BorderSide(color: Colors.teal)),
+                          // hintText: 'No. of E-Pin',
+                          labelText: 'Utr No/Slip No',
+                          labelStyle: const TextStyle(fontSize: 20.0),
+                          suffixStyle: const TextStyle(color: Colors.green)),
                       maxLength: 8,
                       textInputAction: TextInputAction.next,
                       keyboardType: TextInputType.text,
@@ -190,18 +213,14 @@ class _RequestEPinState extends State<RequestEPin> {
                     ),
                   ),
                   Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      SizedBox(
-                        width: MediaQuery.of(context).size.width * .2,
-                      ),
                       ElevatedButton(
                           onPressed: () {
                             pickImage();
                           },
                           child: Text('choose File')),
-                      SizedBox(
-                        width: MediaQuery.of(context).size.width * .1,
-                      ),
+                      SizedBox(height: 50,),
                       SizedBox(
                           height: 60,
                           width: 60,
@@ -221,17 +240,19 @@ class _RequestEPinState extends State<RequestEPin> {
                     padding: const EdgeInsets.only(left: 30, top: 15.0),
                     child: Row(
                       children: [
-                        RaisedButton(
+                        ElevatedButton(
                           onPressed: () {
                             context.read<UserActivityCubit>().updateIndex(1);
                             Navigator.pop(context);
                             // _save(context);
                             // Navigator.of(context).push(MaterialPageRoute(builder: (_)=>UserActive()));
                           },
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(80.0)),
-                          textColor: Colors.white,
-                          padding: const EdgeInsets.all(0),
+                          style: ElevatedButton.styleFrom(
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(80.0)),
+                            foregroundColor: Colors.white,
+                            padding: const EdgeInsets.all(0),
+                          ),
                           child: Container(
                             alignment: Alignment.center,
                             height: size.height * .06,
@@ -253,15 +274,17 @@ class _RequestEPinState extends State<RequestEPin> {
                         SizedBox(
                           width: MediaQuery.of(context).size.width * .03,
                         ),
-                        RaisedButton(
+                        ElevatedButton(
                           onPressed: () {
                             // _save(context);
                             // Navigator.of(context).push(MaterialPageRoute(builder: (_)=>OtpScreen()));
                           },
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(80.0)),
-                          textColor: Colors.white,
-                          padding: const EdgeInsets.all(0),
+                          style: ElevatedButton.styleFrom(
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(80.0)),
+                            foregroundColor: Colors.white,
+                            padding: const EdgeInsets.all(0),
+                          ),
                           child: Container(
                             alignment: Alignment.center,
                             height: size.height * .06,
